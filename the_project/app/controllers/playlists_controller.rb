@@ -12,11 +12,12 @@ class PlaylistsController < ApplicationController
 
     if @playlist.save
       redirect_to playlists_path
+    end
   end
 
 private
   def playlist_params
     params.require(:playlist).permit(:name)
   end
-  
+
 end
