@@ -1,6 +1,8 @@
 class PlaylistsController < ApplicationController
   def index
     @playlists = Playlist.all
+    @songs = Song.all
+
   end
 
   def new
@@ -12,6 +14,8 @@ class PlaylistsController < ApplicationController
 
     if @playlist.save
       redirect_to playlists_path
+    else
+      redirect_to root_path
     end
   end
 
