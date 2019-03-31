@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  post "/playlists/subscriptions/add", to: "subscriptions#create"
+  get "/playlists/subscriptions/delete", to: "subscriptions#destroy"
+  resources :subscriptions
   resources :songs
   resources :playlists
   get 'users/index'
