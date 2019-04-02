@@ -12,8 +12,8 @@
   <body>
     <%= yield %>
     <ul>
-      <li><a href="#home">pas</a></li>
-      <li><a href="#pas">da</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/songs">pas</a></li>
 
       <% if user_signed_in? %>
         <li class = "profile"><%= link_to current_user.email, edit_user_registration_path %></li>
