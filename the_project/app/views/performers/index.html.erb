@@ -1,0 +1,29 @@
+<%= link_to "Create new performer", new_performer_path %>
+
+<% @performers.each do |performer| %>
+  <p>Name: <%= performer.name %>
+  <%= link_to "Delete performer", performer_path(performer), method: :delete %><br>
+
+  <% performer.songs.each do |song| %>
+    Title: <%= song.title %><br>
+  <% end %>
+
+  <%= form_tag ("performers/add?performer_id=#{performer.id}") do %>
+    <%
+      @valid_songs = Array.new()
+
+      Song.all.each do |song|
+        if song.performer_id != performer.id and song.performer_id == nil
+          @valid_songs.append(song)
+        end
+      end
+    %>
+
+    <% if !@valid_songs.empty? %>
+      <%= select_tag "song_id", options_from_collection_for_select(@valid_songs, :id, :title) %>
+      <%= submit_tag "Add song to performer" %>
+    <% end %>
+  <% end %></p>
+<% end %>
+
+<%= link_to "Back", root_path %>
