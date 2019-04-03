@@ -5,16 +5,16 @@
   <%= link_to "Delete", album, method: :delete %>
 
   <% album.songs.each do |song| %>
-    Song Title: <%= song.title %>
-    <%= link_to "Delete song", "albums/destroy_song?performer_id=#{performer.id}&song_id=#{song.id}" %><br>
+    <br>Song Title: <%= song.title %>
+    <%= link_to "Delete song", "albums/destroy_song?album_id=#{album.id}&song_id=#{song.id}" %><br>
   <% end %>
 
-  <%= form_for ("albums/add_song?album_id=#{album.id}") do %>
+  <%= form_tag ("albums/add_song?album_id=#{album.id}") do %>
     <%
       @valid_songs = Array.new()
 
       Song.all.each do |song|
-        if song.album_id != album.id
+        if song.album_id != album.id and song.album_id == nil
           @valid_songs.append(song)
         end
       end

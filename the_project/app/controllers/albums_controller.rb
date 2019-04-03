@@ -12,13 +12,18 @@ class AlbumsController < ApplicationController
 
     if album.save
       redirect_to albums_path
+    else
+      render album.errors.full_messages
     end
   end
 
   def destroy
     album = Album.find(params[:id])
-    album.destroy
+    album.songs.each do |song|
+      song.destroy
+    end
 
+    album.destroy
     redirect_to albums_path
   end
 
@@ -40,6 +45,6 @@ class AlbumsController < ApplicationController
 
   private
     def album_params
-      params.require(:album).permit(:title, :body)
+      params.require(:album).permit(:title)
     end
 end

@@ -10,9 +10,9 @@ class PlaylistsController < ApplicationController
   end
 
   def create
-    @playlist = Playlist.new(playlist_params)
+    playlist = Playlist.new(playlist_params)
 
-    if @playlist.save
+    if playlist.save
       redirect_to playlists_path
     else
       redirect_to root_path
