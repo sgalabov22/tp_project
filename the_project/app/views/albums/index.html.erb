@@ -1,0 +1,30 @@
+<%= link_to "Create new album", new_album_path %>
+
+<% @albums.each do |album| %>
+  <p>Title: <%= album.title %>
+  <%= link_to "Delete", album, method: :delete %>
+
+  <% album.songs.each do |song| %>
+    Song Title: <%= song.title %>
+    <%= link_to "Delete song", "albums/destroy_song?performer_id=#{performer.id}&song_id=#{song.id}" %><br>
+  <% end %>
+
+  <%= form_for ("albums/add_song?album_id=#{album.id}") do %>
+    <%
+      @valid_songs = Array.new()
+
+      Song.all.each do |song|
+        if song.album_id != album.id
+          @valid_songs.append(song)
+        end
+      end
+    %>
+
+    <% if !@valid_songs.empty? %>
+      <%= select_tag "song_id", options_from_collection_for_select(@valid_songs, :id, :title) %>
+      <%= submit_tag "Add song to album" %>
+    <% end %>
+
+  <% end %>
+  </p>
+<% end %>

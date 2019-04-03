@@ -10,9 +10,9 @@ class PerformersController < ApplicationController
   end
 
   def create
-    @performer = Performer.new(performer_params)
+    performer = Performer.new(performer_params)
 
-    if @performer.save
+    if performer.save
       redirect_to performers_path
     end
   end
@@ -24,15 +24,38 @@ class PerformersController < ApplicationController
     end
 
     performer.destroy
-
     redirect_to performers_path
   end
 
-  def add
+  def add_song
     performer = Performer.find(params[:performer_id])
     song = Song.find(params[:song_id])
 
     performer.songs.append(song)
+    redirect_to performers_path
+  end
+
+  def destroy_song
+    song = Song.find(params[:song_id])
+    performer = Performer.find(params[:performer_id])
+
+    performer.songs.destroy(song)
+    redirect_to performers_path
+  end
+
+  def add_album
+    album = Album.find(params[:album_id])
+    performer = Performer.find(params[:performer_id])
+
+    performer.albums.append(album)
+    redirect_to performers_path
+  end
+
+  def destroy_album
+    album = Album.find(params[:album_id])
+    performer = Performer.find(params[:performer_id])
+
+    performer.albums.destroy(album)
     redirect_to performers_path
   end
 

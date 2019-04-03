@@ -3,11 +3,17 @@ Rails.application.routes.draw do
   get '/performers/records/delete', to: "records#destroy"
   post "/playlists/subscriptions/add", to: "subscriptions#create"
   get "/playlists/subscriptions/delete", to: "subscriptions#destroy"
-  post "/performers/add", to: "performers#add"
+  post "/performers/add_song", to: "performers#add_song"
+  get "/performers/destroy_song", to: "performers#destroy_song"
+  post "/performers/add_album", to: "performers#add_album"
+  get "/performers/destroy_album", to: "performers#destroy_album"
+  post "/albums/add_song", to: "albums#add_song"
+  get "/albums/destroy_song", to: "albums#destroy_song"
   resources :subscriptions
   resources :performers
   resources :songs
   resources :playlists
+  resources :albums
   get 'users/index'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users

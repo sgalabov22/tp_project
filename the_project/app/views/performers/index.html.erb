@@ -5,10 +5,17 @@
   <%= link_to "Delete performer", performer_path(performer), method: :delete %><br>
 
   <% performer.songs.each do |song| %>
-    Title: <%= song.title %><br>
+    Title song: <%= song.title %>
+    <%= link_to "Remove song", "performers/destroy_song?performer_id=#{performer.id}&song_id=#{song.id}" %>
+    <br>
   <% end %>
 
-  <%= form_tag ("performers/add?performer_id=#{performer.id}") do %>
+  <% performer.albums.each do |album| %>
+    Title album: <%= album.title %>
+    <%= link_to "Remove album", "performers/destroy_album?performer_id=#{performer.id}&album_id=#{album.id}" %>
+  <% end %>
+
+  <%= form_tag ("performers/add_song?performer_id=#{performer.id}") do %>
     <%
       @valid_songs = Array.new()
 
@@ -22,6 +29,23 @@
     <% if !@valid_songs.empty? %>
       <%= select_tag "song_id", options_from_collection_for_select(@valid_songs, :id, :title) %>
       <%= submit_tag "Add song to performer" %>
+    <% end %>
+  <% end %>
+
+  <%= form_tag ("performers/add_album?performer_id=#{performer.id}") do %>
+    <%
+      @valid_albums = Array.new()
+
+      Album.all.each do |album|
+        if album.performer_id != performer.id and album.performer_id == nil
+          @valid_albums.append(album)
+        end
+      end
+    %>
+
+    <% if !@valid_albums.empty? %>
+      <%= select_tag "album_id", options_from_collection_for_select(@valid_albums, :id, :title) %>
+      <%= submit_tag "Add album to performer" %>
     <% end %>
   <% end %></p>
 <% end %>
