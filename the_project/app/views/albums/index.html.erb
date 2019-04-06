@@ -9,6 +9,10 @@
     <%= link_to "Delete song", "albums/destroy_song?album_id=#{album.id}&song_id=#{song.id}" %><br>
   <% end %>
 
+  <% if @albums.blank? %>
+    <h4>Couldn't find albums containing <%= params[:search] %>.</h4>
+  <% end %>
+
   <%= form_tag ("albums/add_song?album_id=#{album.id}") do %>
     <%
       @valid_songs = Array.new()

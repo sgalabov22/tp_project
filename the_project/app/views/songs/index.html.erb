@@ -10,6 +10,10 @@
         <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
+
+    <% if @songs.blank? %>
+      <h4>Couldn't find songs containing <%= params[:search] %>.</h4>
+    <% end %>
   </tbody>
 </table>
 

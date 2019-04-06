@@ -22,7 +22,11 @@
         <li class = "profile"><%= link_to 'Sign Up', new_user_registration_path %></li>
         <li class = "profile"><%= link_to 'Sign In', new_user_session_path %></li>
       <% end %>
-
     </ul>
+
+    <%= form_tag(songs_path, method: :get, class: 'navbar_search') do %>
+      <%= text_field_tag(:search, params[:search], placeholder: 'Search') %>
+      <%= submit_tag("Search") %>
+    <% end %>
   </body>
 </html>
