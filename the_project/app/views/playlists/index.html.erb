@@ -2,12 +2,12 @@
 
 <% @playlists.each do |playlist| %>
   <p>Name: <%= playlist.name %>
-  <%= link_to "Delete playlist",playlist_path(playlist), method: :delete %></p>
+  <%= link_to "Delete playlist",playlist_path(playlist), method: :delete %><br>
 
   <% playlist.songs.each do |song| %>
-    <p>Name of song: <%= song.title %>
+    Name of song: <%= song.title %>
     <%= link_to "Remove song", "playlists/subscriptions/delete?playlist_id=#{playlist.id}&song_id=#{song.id}" %>
-    </p>
+    <br>
   <% end %>
 
   <%= form_tag("/playlists/subscriptions/add?playlist_id=#{playlist.id}") do %>
@@ -23,7 +23,7 @@
       <%= submit_tag "Add song to playlist" %>
     <% end %>
   <% end %>
-  <br>
+  </p>
 <% end %>
 
 <%= link_to "Back", root_path %>
