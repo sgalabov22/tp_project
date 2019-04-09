@@ -5,7 +5,7 @@
   <%= link_to "Delete playlist",playlist_path(playlist), method: :delete %><br>
 
   <% playlist.songs.each do |song| %>
-    Name of song: <%= song.title %>
+    Song Title: <%= link_to song.title, song_path(song) %>
     <%= link_to "Remove song", "playlists/subscriptions/delete?playlist_id=#{playlist.id}&song_id=#{song.id}" %>
     <br>
   <% end %>

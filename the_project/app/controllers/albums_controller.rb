@@ -29,6 +29,10 @@ class AlbumsController < ApplicationController
     redirect_to albums_path
   end
 
+  def show
+    @album = Album.find(params[:id])
+  end
+
   def add_song
     song = Song.find(params[:song_id])
     album = Album.find(params[:album_id])

@@ -5,13 +5,13 @@
   <%= link_to "Delete performer", performer_path(performer), method: :delete %><br>
 
   <% performer.songs.each do |song| %>
-    Title song: <%= song.title %>
+    Song Title: <%= link_to song.title, song_path(song) %>
     <%= link_to "Remove song", "performers/destroy_song?performer_id=#{performer.id}&song_id=#{song.id}" %>
     <br>
   <% end %>
 
   <% performer.albums.each do |album| %>
-    Title album: <%= album.title %>
+    Title album: <%= link_to album.title, album_path(album) %>
     <%= link_to "Remove album", "performers/destroy_album?performer_id=#{performer.id}&album_id=#{album.id}" %>
   <% end %>
 
