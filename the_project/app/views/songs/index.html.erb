@@ -4,7 +4,11 @@
   <tbody>
     <% @songs.each do |song| %>
       <tr>
-        <td><%= song.title %></td>
+        <td><strong>Song title: </strong><%= song.title %></td>
+        <td><% if song.performer_id != nil %>
+          <% perf_id = song.performer_id %>
+          <strong>Performer: </strong><%= Performer.find(perf_id).name %>
+        <% end %></td>
         <td><%= link_to 'Show', song %></td>
         <td><%= link_to 'Edit', edit_song_path(song) %></td>
         <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
