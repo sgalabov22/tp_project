@@ -1,6 +1,5 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
   before_action :is_admin?, only: [:new, :destroy, :update, :edit]
   # GET /songs
   # GET /songs.json
