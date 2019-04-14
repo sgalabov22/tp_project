@@ -1,8 +1,14 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :is_admin?, only: [:new, :destroy, :update, :edit]
   # GET /songs
   # GET /songs.json
+
+  def is_admin?
+    redirect_to songs_path, warning: "You are not authorized" unless current_user.admin?
+  end
+
   def index
     @songs = Song.all
   end
@@ -48,6 +54,7 @@ class SongsController < ApplicationController
   # DELETE /songs/1
   # DELETE /songs/1.json
   def destroy
+    is_admin?
     @song.destroy
     respond_to do |format|
       format.html { redirect_to songs_url, notice: 'Song was successfully destroyed.' }

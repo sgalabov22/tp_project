@@ -1,5 +1,11 @@
 class PerformersController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :is_admin?, only: [:new, :destroy, :add_song, :destroy_song, :add_album, :destroy_album]
+  before_action :authenticate_user!
+
+  def is_admin?
+    redirect_to performers_path, warning: "You are not authorized" unless current_user.admin?
+  end
 
   def index
     @performers = Performer.all

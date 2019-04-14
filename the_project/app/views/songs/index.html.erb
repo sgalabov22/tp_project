@@ -10,8 +10,10 @@
           <strong>Performer: </strong><%= Performer.find(perf_id).name %>
         <% end %></td>
         <td><%= link_to 'Show', song %></td>
-        <td><%= link_to 'Edit', edit_song_path(song) %></td>
-        <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user.admin? %>
+          <td><%= link_to 'Edit', edit_song_path(song) %></td>
+          <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -19,7 +21,7 @@
 
 <br>
 
-<% if current_user && current_user.admin %>
+<% if current_user.admin? %>
   <%= link_to 'New Song', new_song_path %>
 <% end %>
 <br>
