@@ -1,10 +1,14 @@
-test:
-  service: Disk
-  root: <%= Rails.root.join("tmp/storage") %>
+google:
+  service: GCS
+  project: tpproject
+  credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'] %>
+  bucket: spotify-app-bucket
 
-local:
-  service: Disk
-  root: <%= Rails.root.join("storage") %>
+google_dev:
+  service: GCS
+  project: tpproject
+  credentials: <%= Rails.root.join("config/secrets/spotify-app.json") %>
+  bucket: spotify-app-bucket
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
