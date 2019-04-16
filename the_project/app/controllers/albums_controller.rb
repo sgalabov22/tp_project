@@ -1,5 +1,10 @@
 class AlbumsController < ApplicationController
+  before_action :is_admin?, only: [:new, :destroy, :add_song, :destroy_song]
   skip_before_action :verify_authenticity_token
+
+  def is_admin?
+    redirect_to albums_path, warning: "You are not authorized" unless current_user.admin?
+  end
 
   def index
     @albums = Album.all
