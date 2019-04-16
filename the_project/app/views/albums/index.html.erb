@@ -1,12 +1,18 @@
-<%= link_to "Create new album", new_album_path %>
+<% if current_user.admin? %>
+  <%= link_to "Create new album", new_album_path %>
+<% end %>
 
 <% @albums.each do |album| %>
   <p>Title: <%= album.title %>
-  <%= link_to "Delete", album, method: :delete %>
+  <% if current_user.admin? %>
+    <%= link_to "Delete", album, method: :delete %>
+  <% end %>
 
   <% album.songs.each do |song| %>
     <br>Song Title: <%= link_to song.title, song_path(song) %>
-    <%= link_to "Delete song", "albums/destroy_song?album_id=#{album.id}&song_id=#{song.id}" %>
+    <% if current_user.admin? %>
+      <%= link_to "Delete song", "albums/destroy_song?album_id=#{album.id}&song_id=#{song.id}" %>
+    <% end %>
   <% end %>
 
   <%= form_tag ("albums/add_song?album_id=#{album.id}") do %>
@@ -20,9 +26,11 @@
       end
     %>
 
-    <% if !@valid_songs.empty? %>
-      <%= select_tag "song_id", options_from_collection_for_select(@valid_songs, :id, :title) %>
-      <%= submit_tag "Add song to album" %>
+    <% if current_user.admin? %>
+      <% if !@valid_songs.empty? %>
+        <%= select_tag "song_id", options_from_collection_for_select(@valid_songs, :id, :title) %>
+        <%= submit_tag "Add song to album" %>
+      <% end %>
     <% end %>
 
   <% end %>
