@@ -3,7 +3,7 @@
 <% end %>
 
 <% @albums.each do |album| %>
-  <p>Title: <%= album.title %>
+  <p>Title: <%= link_to album.title, album_path(album) %>
   <% if current_user.admin? %>
     <%= link_to "Delete", album, method: :delete %>
   <% end %>

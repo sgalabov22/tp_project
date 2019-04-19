@@ -1,3 +1,13 @@
-Title: <%= @album.title %>
-<br>
+<p>Title: <%= @album.title %>
+<% if current_user.admin? %>
+  <%= link_to "Delete", @album, method: :delete %>
+<% end %>
+
+<% @album.songs.each do |song| %>
+  <br>Song Title: <%= link_to song.title, song_path(song) %>
+  <% if current_user.admin? %>
+    <%= link_to "Delete song", "albums/destroy_song?album_id=#{@album.id}&song_id=#{song.id}" %>
+  <% end %>
+<% end %>
+</p>
 <%= link_to "Back", albums_path %>
