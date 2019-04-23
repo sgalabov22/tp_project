@@ -1,12 +1,13 @@
 class AlbumsController < ApplicationController
   def index
     @albums = Album.all
-
+=begin
     if params[:search]
       @albums = Album.search(params[:search]).order("created_at DESC");
     else
       @albums = Album.all.order("created_at DESC");
     end 
+=end
   end
 
   def new

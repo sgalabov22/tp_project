@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get "/performers/destroy_album", to: "performers#destroy_album"
   post "/albums/add_song", to: "albums#add_song"
   get "/albums/destroy_song", to: "albums#destroy_song"
+
+  get "/search", to: 'application#search'
+
   resources :subscriptions
   resources :performers
   resources :songs

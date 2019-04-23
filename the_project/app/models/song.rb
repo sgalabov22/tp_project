@@ -4,8 +4,4 @@ class Song < ApplicationRecord
 
   belongs_to :album, optional: true
   belongs_to :performer, optional: true
-
-  def self.search(search)
-    where("title LIKE ?", "%#{search}%") 
-  end
 end

@@ -24,9 +24,17 @@
       <% end %>
     </ul>
 
-    <%= form_tag(songs_path, method: :get, class: 'navbar_search') do %>
-      <%= text_field_tag(:search, params[:search], placeholder: 'Search') %>
-      <%= submit_tag("Search") %>
+    <%= form_with url: "/search", :html => {:method => :get} do |f| %>
+      <%= f.text_field(:search, placeholder: 'Search') %>
+      <%= f.submit("Search") %>
     <% end %>
+
+    <% if !@search_result.nil? %>
+      <%= @search_result.each do |result| %>
+        <%= result.searchable_type %>
+        <%= result.label %>
+      <% end %>
+    <% end %>
+
   </body>
 </html>
