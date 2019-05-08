@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_07_192748) do
+ActiveRecord::Schema.define(version: 2019_05_08_170409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,10 @@ ActiveRecord::Schema.define(version: 2019_05_07_192748) do
     t.string "mp3_content_type"
     t.integer "mp3_file_size"
     t.datetime "mp3_updated_at"
+    t.string "mp3_song_file_name"
+    t.string "mp3_song_content_type"
+    t.integer "mp3_song_file_size"
+    t.datetime "mp3_song_updated_at"
   end
 
   create_table "subscriptions", force: :cascade do |t|

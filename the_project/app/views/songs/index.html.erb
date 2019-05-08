@@ -5,7 +5,9 @@
     <% @songs.each do |song| %>
       <tr>
         <td><strong>Song title: </strong><%= song.title %></td>
-        <td><%= song.mp3.url %></td>
+        <td>
+            <%= song.mp3_song.url %>
+        </td>
         <td><% if song.performer_id != nil %>
           <% perf_id = song.performer_id %>
           <strong>Performer: </strong><%= Performer.find(perf_id).name %>
