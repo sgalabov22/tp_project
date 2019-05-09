@@ -1,31 +1,44 @@
-<h1>Songs</h1>
 
-<table>
-  <tbody>
-    <% @songs.each do |song| %>
-      <tr>
-        <td><strong>Song title: </strong><%= song.title %></td>
-        <td>
-            <%= song.mp3_song.url %>
-        </td>
-        <td><% if song.performer_id != nil %>
-          <% perf_id = song.performer_id %>
-          <strong>Performer: </strong><%= Performer.find(perf_id).name %>
-        <% end %></td>
-        <td><%= link_to 'Show', song %></td>
-        <% if current_user.admin? %>
-          <td><%= link_to 'Edit', edit_song_path(song) %></td>
-          <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+  </head>
+  <body>
+    <h1>Songs</h1>
+
+    <table>
+      <tbody>
+        <% @songs.each do |song| %>
+          <tr>
+            <td><strong>Song title: </strong><%= song.title %></td>
+
+            <td>
+              <%= audio_tag song.mp3_song, controls: true %>
+            </td>
+            <td><% if song.performer_id != nil %>
+              <% perf_id = song.performer_id %>
+              <strong>Performer: </strong><%= Performer.find(perf_id).name %>
+            <% end %></td>
+            <td><%= link_to 'Show', song %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to 'Edit', edit_song_path(song) %></td>
+              <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
         <% end %>
-      </tr>
+      </tbody>
+    </table>
+
+    <br>
+
+    <% if current_user.admin? %>
+      <%= link_to 'New Song', new_song_path %>
     <% end %>
-  </tbody>
-</table>
+    <br>
+    <%= link_to "Back to main page", root_path %>
 
-<br>
-
-<% if current_user.admin? %>
-  <%= link_to 'New Song', new_song_path %>
-<% end %>
-<br>
-<%= link_to "Back to main page", root_path %>
+  </body>
+</html>
