@@ -9,6 +9,10 @@ class PlaylistsController < ApplicationController
     @playlist = Playlist.new
   end
 
+  def show
+    @playlist = Playlist.find(params[:id])
+  end
+
   def create
     playlist = Playlist.new(playlist_params)
 
