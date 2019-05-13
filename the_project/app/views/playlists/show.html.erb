@@ -8,8 +8,10 @@
   <body>
 
     Name: <%= @playlist.name %>
+
     <%= link_to "Delete playlist",playlist_path(@playlist), method: :delete %>
     <br>
+    <%= button_tag "Play", class: "playBtn", value: @playlist_songs.first.mp3_song %>
     <%= audio_tag @playlist_songs[0].mp3_song, controls: true, id: "audio_tag_id" %>
     <br>
 
@@ -53,7 +55,6 @@
             count = 0;
           }
 
-          console.log(sources[count]);
           myAudio.setAttribute('src', sources[count]);
           myAudio.load();
 
