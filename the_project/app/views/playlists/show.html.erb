@@ -44,7 +44,6 @@
 
         var myAudio = $('#audio_tag_id')[0];
         var count = 0;
-        var songIndex = 0;
 
         myAudio.onended = function(){
           count += 1;
@@ -63,13 +62,11 @@
         };
 
         $('#song_play').click(function () {
-          if(songIndex != count){
-            myAudio.setAttribute('src', sources[count]);
-            myAudio.load();
-            myAudio.play();
-          }else{
-            alert("Dont");
-          }
+
+          myAudio.setAttribute('src', sources[1]);
+          myAudio.load();
+          myAudio.play();
+        
         });
       });
 
