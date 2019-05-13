@@ -54,8 +54,11 @@
           // console.log(sources[count]);
           myAudio.setAttribute('src', sources[count]);
 
-          // myAudio.load();
-          myAudio.play();
+          myAudio.load();
+
+          if (count != 0) {
+            myAudio.play();
+          }
         };
       });
     </script>
