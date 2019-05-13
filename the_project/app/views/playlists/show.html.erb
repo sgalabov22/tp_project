@@ -35,28 +35,26 @@
     <%= link_to "Back", playlists_path %>
 
     <script type="text/javascript">
+
       $(document).ready( function(){
+        var sources = <%= raw @songs_json %>;
+        var lastSong = <%= @songsCount %>;
+
         var myAudio = $('#audio_tag_id')[0];
-        <% @songCount = 0 %>
+
         var count = 0;
 
         myAudio.onended = function(){
-          console.log('<%= @songCount %>');
-          <% @songCount += 1 %>
           count += 1;
 
-          <% if @songCount >= @playlist.songs.size %>
-            <% @songCount = 0 %>
-          <% end %>
-
-          if(count >= '<%= @playlist.songs.size %>'){
+          if(count >= lastSong){
             count = 0;
           }
+          
+          // console.log(sources[count]);
+          myAudio.setAttribute('src', sources[count]);
 
-          console.log('<%= @playlist.songs[@songCount].to_json %>');
-          myAudio.setAttribute('src', '<%= @playlist.songs[@songCount].mp3_song %>');
-
-          myAudio.load();
+          // myAudio.load();
           myAudio.play();
         };
       });

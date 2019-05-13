@@ -11,6 +11,17 @@ class PlaylistsController < ApplicationController
 
   def show
     @playlist = Playlist.find(params[:id])
+    @playlist_songs = @playlist.songs
+
+    @songs_sources = {}
+    i = 0
+    @playlist_songs.each do |song|
+      @songs_sources[i] = song.mp3_song.to_s
+      i += 1
+    end
+
+    @songs_json = @songs_sources.to_json
+    @songsCount = i;
   end
 
   def create
