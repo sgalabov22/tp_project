@@ -8,11 +8,12 @@
   <body>
 
     Name: <%= @playlist.name %>
-    <%= link_to "Delete playlist",playlist_path(@playlist), method: :delete %><br>
+    <%= link_to "Delete playlist",playlist_path(@playlist), method: :delete %>
+    <br>
     <%= audio_tag @playlist.songs[0].mp3_song, controls: true, id: "audio_tag_id" %>
+    <br>
 
     <% @playlist.songs.each do |song| %>
-    <br>
       Song Title: <%= link_to song.title, song_path(song) %>
       <%= link_to "Remove song", "playlists/subscriptions/delete?playlist_id=#{@playlist.id}&song_id=#{song.id}" %>
       <br>
@@ -38,7 +39,7 @@
 
       $(document).ready( function(){
         var sources = <%= raw @songs_json %>;
-        var lastSong = <%= @songsCount %>;
+        var lastSong = <%= @songsCount  %>;
 
         var myAudio = $('#audio_tag_id')[0];
 
@@ -50,7 +51,7 @@
           if(count >= lastSong){
             count = 0;
           }
-          
+
           // console.log(sources[count]);
           myAudio.setAttribute('src', sources[count]);
           myAudio.load();
