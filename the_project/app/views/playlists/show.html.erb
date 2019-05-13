@@ -10,11 +10,13 @@
     Name: <%= @playlist.name %>
     <%= link_to "Delete playlist",playlist_path(@playlist), method: :delete %>
     <br>
-    <%= audio_tag @playlist.songs[0].mp3_song, controls: true, id: "audio_tag_id" %>
+    <%= audio_tag @playlist_songs[0].mp3_song, controls: true, id: "audio_tag_id" %>
     <br>
 
-    <% @playlist.songs.each do |song| %>
+    <% @playlist_songs.each do |song| %>
       Song Title: <%= link_to song.title, song_path(song) %>
+      <%= link_to "Play", playlist_path(@playlist), :id => "song_play" %>
+
       <%= link_to "Remove song", "playlists/subscriptions/delete?playlist_id=#{@playlist.id}&song_id=#{song.id}" %>
       <br>
     <% end %>
@@ -36,14 +38,13 @@
     <%= link_to "Back", playlists_path %>
 
     <script type="text/javascript">
-
       $(document).ready( function(){
         var sources = <%= raw @songs_json %>;
-        var lastSong = <%= @songsCount  %>;
+        var lastSong = <%= @songsCount %>;
 
         var myAudio = $('#audio_tag_id')[0];
-
         var count = 0;
+        var songIndex = 0;
 
         myAudio.onended = function(){
           count += 1;
@@ -54,14 +55,24 @@
 
           // console.log(sources[count]);
           myAudio.setAttribute('src', sources[count]);
-
           myAudio.load();
 
           if (count != 0) {
             myAudio.play();
           }
         };
+
+        $('#song_play').click(function () {
+          if(songIndex != count){
+            myAudio.setAttribute('src', sources[count]);
+            myAudio.load();
+            myAudio.play();
+          }else{
+            alert("Dont");
+          }
+        });
       });
+
     </script>
   </body>
 </html>

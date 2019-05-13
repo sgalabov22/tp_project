@@ -21,7 +21,7 @@ class PlaylistsController < ApplicationController
     end
 
     @songs_json = @songs_sources.to_json
-    @songsCount = i;
+    @songsCount = i
   end
 
   def create
