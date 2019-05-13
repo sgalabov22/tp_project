@@ -16,7 +16,7 @@
     <% @playlist_songs.each do |song| %>
       Song Title: <%= link_to song.title, song_path(song) %>
 
-      <%= link_to "Play", playlist_path(@playlist), :onclick => "song_play(#{song.mp3_song.to_json})" %>
+      <%= button_tag "Play", class: "playBtn", value: song.mp3_song %>
 
       <%= link_to "Remove song", "playlists/subscriptions/delete?playlist_id=#{@playlist.id}&song_id=#{song.id}" %>
       <br>
@@ -53,7 +53,7 @@
             count = 0;
           }
 
-          // console.log(sources[count]);
+          console.log(sources[count]);
           myAudio.setAttribute('src', sources[count]);
           myAudio.load();
 
@@ -62,14 +62,16 @@
           }
         };
 
+        $(".playBtn").click(function(e) {
+          var song = $(e.currentTarget)[0].value;
+          var myAudio = $('#audio_tag_id')[0];
+          myAudio.setAttribute('src', song);
+          myAudio.load();
+          myAudio.play();
+        })
+
       });
 
-      function song_play(song){
-        var myAudio = $('#audio_tag_id')[0];
-        myAudio.setAttribute('src', song);
-        myAudio.load();
-        myAudio.play();
-      }
     </script>
   </body>
 </html>
