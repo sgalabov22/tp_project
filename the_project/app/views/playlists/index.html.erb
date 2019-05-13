@@ -8,30 +8,11 @@
     <%= link_to "New playlist", new_playlist_path %>
 
     <% @playlists.each do |playlist| %>
-      <% @p = playlist %>
-      <p>Name: <%= link_to playlist.name, playlist_path(playlist) %>
+      <p>Name: <%= playlist.name %>
+      <%= link_to "Show playlist", playlist_path(playlist) %>
       <%= link_to "Delete playlist",playlist_path(playlist), method: :delete %><br>
-
-      <% playlist.songs.each do |song| %>
-        Song Title: <%= link_to song.title, song_path(song) %>
-        <%= link_to "Remove song", "playlists/subscriptions/delete?playlist_id=#{playlist.id}&song_id=#{song.id}" %>
-        <br>
-      <% end %>
-
-      <%= form_tag("/playlists/subscriptions/add?playlist_id=#{playlist.id}") do %>
-        <% playlist_songs = Array.new()
-        @songs.each do |song|
-          if !song.playlists.ids.include? playlist.id
-            playlist_songs.append(song)
-          end
-        end %>
-
-        <% if !playlist_songs.empty? %>
-          <%= select_tag "song_id", options_from_collection_for_select(playlist_songs, :id, :title) %>
-          <%= submit_tag "Add song to playlist" %>
-        <% end %>
-      <% end %>
       </p>
+      <br>
     <% end %>
 
     <%= link_to "Back", root_path %>

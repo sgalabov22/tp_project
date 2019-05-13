@@ -2,37 +2,50 @@
   <%= link_to "Create new album", new_album_path %>
 <% end %>
 
-<% @albums.each do |album| %>
-  <p>Title: <%= link_to album.title, album_path(album) %>
-  <% if current_user.admin? %>
-    <%= link_to "Delete", album, method: :delete %>
-  <% end %>
 
-  <% album.songs.each do |song| %>
-    <br>Song Title: <%= link_to song.title, song_path(song) %>
-    <% if current_user.admin? %>
-      <%= link_to "Delete song", "albums/destroy_song?album_id=#{album.id}&song_id=#{song.id}" %>
+<table>
+  <tbody>
+
+    <% @albums.each do |album| %>
+      <tr>
+        <td>Title: <%= link_to album.title, album_path(album) %>
+        <% if current_user.admin? %>
+          <%= link_to "Delete", album, method: :delete %>
+        <% end %>
+        </td>
+
+        <td>
+        <% album.songs.each do |song| %>
+          Song Title: <%= link_to song.title, song_path(song) %>
+          <% if current_user.admin? %>
+            <%= link_to "Delete song", "albums/destroy_song?album_id=#{album.id}&song_id=#{song.id}" %>
+          <% end %>
+        <% end %>
+        </td>
+
+        <td>
+        <%= form_tag ("albums/add_song?album_id=#{album.id}") do %>
+          <%
+            @valid_songs = Array.new()
+
+            Song.all.each do |song|
+              if song.album_id != album.id and song.album_id == nil
+                @valid_songs.append(song)
+              end
+            end
+          %>
+
+          <% if !@valid_songs.empty? && current_user.admin? %>
+            <%= select_tag "song_id", options_from_collection_for_select(@valid_songs, :id, :title) %>
+            <%= submit_tag "Add song to album" %>
+          <% end %>
+
+        <% end %>
+        </td>
+      </tr>
     <% end %>
-  <% end %>
+  </tbody>
+</table>
 
-  <%= form_tag ("albums/add_song?album_id=#{album.id}") do %>
-    <%
-      @valid_songs = Array.new()
-
-      Song.all.each do |song|
-        if song.album_id != album.id and song.album_id == nil
-          @valid_songs.append(song)
-        end
-      end
-    %>
-
-    <% if !@valid_songs.empty? && current_user.admin? %>
-      <%= select_tag "song_id", options_from_collection_for_select(@valid_songs, :id, :title) %>
-      <%= submit_tag "Add song to album" %>
-    <% end %>
-
-  <% end %>
-  </p>
-<% end %>
 
 <%= link_to "Back", root_path %>

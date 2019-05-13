@@ -7,22 +7,33 @@
   </head>
   <body>
 
-    Name: <%= @playlist.name %>
+    Name: <%= @playlist.name %><br>
+
+    <%= button_tag "Play the playlist", class: "playBtn", value: @playlist_songs.first.mp3_song %>
 
     <%= link_to "Delete playlist",playlist_path(@playlist), method: :delete %>
     <br>
-    <%= button_tag "Play", class: "playBtn", value: @playlist_songs.first.mp3_song %>
     <%= audio_tag @playlist_songs[0].mp3_song, controls: true, id: "audio_tag_id" %>
+    <br><br>
+
+    <table>
+      <thead>
+
+      </thead>
+      <tbody>
+          <% @playlist_songs.each do |song| %>
+            <tr>
+              <th>Song Title: </th>
+              <td><%= link_to song.title, song_path(song) %></td>
+
+              <td><%= button_tag "Play the song", class: "playBtn", value: song.mp3_song %></td>
+
+              <td><%= link_to "Remove song", "playlists/subscriptions/delete?playlist_id=#{@playlist.id}&song_id=#{song.id}" %></td>
+            </tr>
+          <% end %>
+      </tbody>
+    </table>
     <br>
-
-    <% @playlist_songs.each do |song| %>
-      Song Title: <%= link_to song.title, song_path(song) %>
-
-      <%= button_tag "Play", class: "playBtn", value: song.mp3_song %>
-
-      <%= link_to "Remove song", "playlists/subscriptions/delete?playlist_id=#{@playlist.id}&song_id=#{song.id}" %>
-      <br>
-    <% end %>
 
     <%= form_tag("/playlists/subscriptions/add?playlist_id=#{@playlist.id}") do %>
       <% playlist_songs = Array.new()
@@ -64,9 +75,9 @@
         };
 
         $(".playBtn").click(function(e) {
-          var song = $(e.currentTarget)[0].value;
+          var songSource = $(e.currentTarget)[0].value;
           var myAudio = $('#audio_tag_id')[0];
-          myAudio.setAttribute('src', song);
+          myAudio.setAttribute('src', songSource);
           myAudio.load();
           myAudio.play();
         })

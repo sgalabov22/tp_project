@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_08_170409) do
+ActiveRecord::Schema.define(version: 2019_05_13_203722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,12 @@ ActiveRecord::Schema.define(version: 2019_05_08_170409) do
     t.string "mp3_song_content_type"
     t.integer "mp3_song_file_size"
     t.datetime "mp3_song_updated_at"
+    t.integer "user_id"
+  end
+
+  create_table "songs_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "song_id", null: false
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -66,6 +72,7 @@ ActiveRecord::Schema.define(version: 2019_05_08_170409) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "song_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

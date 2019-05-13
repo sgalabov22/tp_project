@@ -12,7 +12,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    </head>
   <body>
 
     <header>
@@ -23,6 +23,11 @@
       </label>
 
       <ul class="menu">
+        <li id = "playlists"><%= link_to "Playlists", playlists_path %></li>
+        <li id = "albums"><%= link_to "Albums", albums_path %></li>
+        <li id = "performers"><%= link_to "Performers", performers_path %></li>
+        <li id = "songs"><%= link_to "Songs", songs_path %></li>
+
         <% if user_signed_in? %>
           <li class = "profile"><%= link_to current_user.email, edit_user_registration_path %></li>
           <li class = "profile"><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>

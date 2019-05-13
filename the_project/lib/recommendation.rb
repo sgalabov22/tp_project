@@ -1,7 +1,7 @@
-module Recommendation 
+module Recommendation
 
     def recommended_songs
-        other_users = self.class.all.where.not('id != ?', self.id);
+        other_users = self.class.all.where('id != ?', self.id);
 
         recommended = Hash.new(0)
 

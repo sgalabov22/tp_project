@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :playlists
-  has_many :songs
+  has_and_belongs_to_many :songs
 
   include Recommendation
 end

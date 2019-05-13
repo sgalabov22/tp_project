@@ -14,7 +14,11 @@
         <% @songs.each do |song| %>
           <tr>
             <td><strong>Song title: </strong><%= song.title %></td>
-
+            <td>
+              <% if !current_user.songs.include? song %>
+                <%= button_to "Like", :action => :addToLiked, params: {id: song.id}, method: :post %>
+              <% end %>
+            </td>
             <td>
               <%= audio_tag song.mp3_song, controls: true %>
             </td>
@@ -29,8 +33,13 @@
             <% end %>
           </tr>
         <% end %>
+
       </tbody>
     </table>
+    
+    <% current_user.recommended_songs.each do |key, value| %>
+      <%= key.title %>
+    <% end %>
 
     <br>
 

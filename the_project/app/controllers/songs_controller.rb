@@ -61,6 +61,16 @@ class SongsController < ApplicationController
     end
   end
 
+  def addToLiked
+    songToAdd = Song.find(params[:id])
+    if !current_user.songs.include? songToAdd
+      current_user.songs.push(songToAdd)
+      redirect_to songs_path
+    else
+      redirect_to songs_path
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_song
