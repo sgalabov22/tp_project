@@ -14,7 +14,6 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     </head>
   <body>
-
     <header>
       <a href="/"><%= image_tag  "spotify.png", :class => "logo" %></a>
       <input type="checkbox" id="chk">
@@ -23,9 +22,14 @@
       </label>
 
       <ul class="menu">
+        <li id="search">
+          <%= form_tag(search_url, :method => :get) do %>
+            <%= text_field_tag :search, nil, placeholder: 'Search' %>
+            <%= submit_tag("Go") %>
+          <% end %>
+        </li>
+
         <li id = "playlists"><%= link_to "Playlists", playlists_path %></li>
-        <li id = "albums"><%= link_to "Albums", albums_path %></li>
-        <li id = "performers"><%= link_to "Performers", performers_path %></li>
         <li id = "songs"><%= link_to "Songs", songs_path %></li>
 
         <% if user_signed_in? %>
