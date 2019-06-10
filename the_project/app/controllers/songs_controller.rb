@@ -10,18 +10,21 @@ class SongsController < ApplicationController
 
   def index
     @songs = Song.all
-=begin
-    if params[:search]
-      @songs = Search.execute(params[:search]);
-    else
-      @songs = Song.all.order("created_at DESC");
+    @songs_sources = {}
+    i = 0
+    current_user.songs.each do |song|
+      @songs_sources[i] = song.mp3_song.to_s
+      i += 1
     end
-=end
+
+    @songs_json = @songs_sources.to_json
+    @songsCount = i
   end
 
   # GET /songs/1
   # GET /songs/1.json
   def show
+
   end
 
   # GET /songs/new

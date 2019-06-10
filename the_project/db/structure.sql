@@ -5,7 +5,6 @@ SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
-SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
@@ -161,7 +160,8 @@ CREATE TABLE public.songs (
     mp3_song_file_name character varying,
     mp3_song_content_type character varying,
     mp3_song_file_size integer,
-    mp3_song_updated_at timestamp without time zone
+    mp3_song_updated_at timestamp without time zone,
+    user_id integer
 );
 
 
@@ -259,7 +259,8 @@ CREATE TABLE public.users (
     reset_password_sent_at timestamp without time zone,
     remember_created_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    song_id integer
 );
 
 
@@ -422,6 +423,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190409144326'),
 ('20190507192748'),
 ('20190508170409'),
+('20190513203053'),
 ('20190513203722'),
 ('20190610162151');
 

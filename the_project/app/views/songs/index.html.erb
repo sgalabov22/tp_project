@@ -20,26 +20,21 @@
       </thead>
 
       <tbody>
+
+        <%= audio_tag current_user.songs.first.mp3_song, controls: true, controlsList: "nodownload", id: "audio_tag_songs_id" %>
+
         <% current_user.songs.each do |song| %>
           <tr>
+            <td><%= button_tag "Play the song", class: "playBtn", value: song.mp3_song %></td>
+
             <td><%= song.title %></td>
-
-            <% if !current_user.songs.include? song %>
-              <td>
-              <%= button_to "Like", :action => :addToLiked, params: {id: song.id}, method: :post %>
-              </td>
-            <% end %>
-
-            <td>
-              <%= audio_tag song.mp3_song, controls: true, controlsList: "nodownload" %>
-            </td>
 
             <td>
             <% if song.performer_id != nil %>
               <% perf_id = song.performer_id %>
               <%= Performer.find(perf_id).name %>
             <% else %>
-              None
+              <p>None</p>
             <% end %>
             </td>
 
@@ -48,7 +43,7 @@
               <% album_id = song.album_id %>
               <%= Album.find(album_id).title %>
             <% else %>
-              None
+              <p>None</p>
             <% end %>
             </td>
 
@@ -63,9 +58,38 @@
       </tbody>
     </table>
 
-    <% current_user.recommended_songs.each do |key, value| %>
-      <%= key.title %>
-    <% end %>
+    <script type="text/javascript">
+      $(document).ready( function(){
+        var sources = <%= raw @songs_json %>;
+        var lastSong = <%= @songsCount %>;
 
+        var myAudio = $('#audio_tag_songs_id')[0];
+        var count = 0;
+
+        myAudio.onended = function(){
+          count += 1;
+
+          if(count >= lastSong){
+            count = 0;
+          }
+
+          myAudio.setAttribute('src', sources[count]);
+          myAudio.load();
+
+          if (count != 0) {
+            myAudio.play();
+          }
+        };
+
+        $(".playBtn").click(function(e) {
+          var songSource = $(e.currentTarget)[0].value;
+          var myAudio = $('#audio_tag_songs_id')[0];
+          myAudio.setAttribute('src', songSource);
+          myAudio.load();
+          myAudio.play();
+        })
+
+      });
+    </script>
   </body>
 </html>
