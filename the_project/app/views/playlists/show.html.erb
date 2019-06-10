@@ -8,13 +8,17 @@
   <body>
 
     Name: <%= @playlist.name %><br>
-    
-    <%= button_tag "Play the playlist", class: "playBtn", value: @playlist_songs.first.mp3_song %>
+
+    <% if !@playlist_songs.empty? %>
+      <%= button_tag "Play the playlist", class: "playBtn", value: @playlist_songs.first.mp3_song %>
+    <% end %>
 
     <%= link_to "Delete playlist",playlist_path(@playlist), method: :delete %>
     <br>
-    <%= audio_tag @playlist_songs[0].mp3_song, controls: true, controlsList: "nodownload", id: "audio_tag_id" %>
-    <br><br>
+    <% if !@playlist_songs.empty? %>
+      <%= audio_tag @playlist_songs[0].mp3_song, controls: true, controlsList: "nodownload", id: "audio_tag_id" %>
+      <br><br>
+    <% end %>
 
     <table>
       <thead>
@@ -28,14 +32,14 @@
 
               <td><%= button_tag "Play the song", class: "playBtn", value: song.mp3_song %></td>
 
-              <td><%= link_to "Remove song", "playlists/subscriptions/delete?playlist_id=#{@playlist.id}&song_id=#{song.id}" %></td>
+              <td><%= link_to "Remove song", "subscriptions/delete?playlist_id=#{@playlist.id}&song_id=#{song.id}" %></td>
             </tr>
           <% end %>
       </tbody>
     </table>
     <br>
 
-    <%= form_tag("/playlists/subscriptions/add?playlist_id=#{@playlist.id}") do %>
+    <%= form_tag("subscriptions/add?playlist_id=#{@playlist.id}") do %>
       <% playlist_songs = Array.new()
       Song.all.each do |song|
         if !song.playlists.ids.include? @playlist.id

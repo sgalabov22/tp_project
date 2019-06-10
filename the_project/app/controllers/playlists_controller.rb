@@ -1,4 +1,6 @@
 class PlaylistsController < ApplicationController
+  protect_from_forgery prepend: true
+
   def index
     @playlists = Playlist.all
     @songs = Song.all
@@ -25,6 +27,7 @@ class PlaylistsController < ApplicationController
 
   def create
     playlist = Playlist.new(playlist_params)
+    current_user.playlists.append(playlist)
 
     if playlist.save
       redirect_to playlists_path
