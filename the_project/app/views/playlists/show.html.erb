@@ -8,12 +8,12 @@
   <body>
 
     Name: <%= @playlist.name %><br>
-
+    
     <%= button_tag "Play the playlist", class: "playBtn", value: @playlist_songs.first.mp3_song %>
 
     <%= link_to "Delete playlist",playlist_path(@playlist), method: :delete %>
     <br>
-    <%= audio_tag @playlist_songs[0].mp3_song, controls: true, id: "audio_tag_id" %>
+    <%= audio_tag @playlist_songs[0].mp3_song, controls: true, controlsList: "nodownload", id: "audio_tag_id" %>
     <br><br>
 
     <table>

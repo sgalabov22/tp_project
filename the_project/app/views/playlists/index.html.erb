@@ -9,7 +9,9 @@
 
     <% @playlists.each do |playlist| %>
       <p>Name: <%= playlist.name %>
+      
       <%= link_to "Show playlist", playlist_path(playlist) %>
+
       <%= link_to "Delete playlist",playlist_path(playlist), method: :delete %><br>
       </p>
       <br>
