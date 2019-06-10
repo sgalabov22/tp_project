@@ -6,62 +6,68 @@
 
   </head>
   <body>
-    <h1>Songs</h1>
+    <div class="header_cont">
+      <h1>Songs</h1>
 
-    <table id = "songs_table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Player</th>
-          <th>Performer</th>
-          <th>Album</th>
-          <th colspan="3">Options</th>
-        </tr>
-      </thead>
+      <% if current_user.songs.empty? %>
+        <h3 style="margin-top: 1em;">You haven't liked any songs</h3>
+      <% else %>
+    </div>
 
-      <tbody>
-        <% current_user.songs.each do |song| %>
+      <table id = "songs_table">
+        <thead>
           <tr>
-            <td><%= song.title %></td>
-
-            <% if !current_user.songs.include? song %>
-              <td>
-              <%= button_to "Like", :action => :addToLiked, params: {id: song.id}, method: :post %>
-              </td>
-            <% end %>
-
-            <td>
-              <%= audio_tag song.mp3_song, controls: true, controlsList: "nodownload" %>
-            </td>
-
-            <td>
-            <% if song.performer_id != nil %>
-              <% perf_id = song.performer_id %>
-              <%= Performer.find(perf_id).name %>
-            <% else %>
-              None
-            <% end %>
-            </td>
-
-            <td>
-            <% if song.album_id != nil %>
-              <% album_id = song.album_id %>
-              <%= Album.find(album_id).title %>
-            <% else %>
-              None
-            <% end %>
-            </td>
-
-            <td><%= link_to 'Show', song %></td>
-            <% if current_user.admin? %>
-              <td><%= link_to 'Edit', edit_song_path(song) %></td>
-              <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
+            <th>Title</th>
+            <th>Player</th>
+            <th>Performer</th>
+            <th>Album</th>
+            <th colspan="3">Options</th>
           </tr>
-        <% end %>
+        </thead>
 
-      </tbody>
-    </table>
+        <tbody> 
+          <% current_user.songs.each do |song| %>
+            <tr>
+              <td><%= song.title %></td>
+
+              <% if !current_user.songs.include? song %>
+                <td>
+                <%= button_to "Like", :action => :addToLiked, params: {id: song.id}, method: :post %>
+                </td>
+              <% end %>
+
+              <td>
+                <%= audio_tag song.mp3_song, controls: true, controlsList: "nodownload" %>
+              </td>
+
+              <td>
+              <% if song.performer_id != nil %>
+                <% perf_id = song.performer_id %>
+                <%= Performer.find(perf_id).name %>
+              <% else %>
+                None
+              <% end %>
+              </td>
+
+              <td>
+              <% if song.album_id != nil %>
+                <% album_id = song.album_id %>
+                <%= Album.find(album_id).title %>
+              <% else %>
+                None
+              <% end %>
+              </td>
+
+              <td><%= link_to 'Show', song %></td>
+              <% if current_user.admin? %>
+                <td><%= link_to 'Edit', edit_song_path(song) %></td>
+                <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
 
     <% current_user.recommended_songs.each do |key, value| %>
       <%= key.title %>

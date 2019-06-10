@@ -18,6 +18,8 @@ body{
 #songs_table td{
   border-top: 2px solid white;
   border-bottom: 2px solid white;
+  text-align: center;
+  vertical-align: middle;
 }
 
 #songs_table a{
@@ -27,4 +29,10 @@ body{
 
 #songs_table a:hover{
   text-decoration: underline;
+}
+
+.header_cont {
+  margin-left: 5em;
+  margin-top: 2em;
+  margin-bottom: 1em;
 }
