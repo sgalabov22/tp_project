@@ -1,5 +1,67 @@
-<% @search_result.each do |result| %>
-    <%= result.searchable_type %>
-    <%= result.label %>
-    <br>
+<% if @search_result.empty? %>
+  <div class="header_cont">
+    <h1>No results found</h1>
+  </div>
+<% else %>
+  <div class="header_cont">
+    <h1>Results</h1>
+  </div>
+
+  <table id = "songs_table">
+    <thead>
+        <tr>
+          <th>Title</th>
+          <th>Like</th>
+          <th>Player</th>
+          <th>Performer</th>
+          <th>Album</th>
+          <th colspan="3">Options</th>
+        </tr>
+    </thead>
+
+    <tbody> 
+      <% @search_result.each do |result| %>
+        <% song = Song.find(result.searchable_id) %>
+        <tr>
+          <td><%= song.title %></td>
+
+          <% if !current_user.songs.include? song %>
+            <td>
+              <%= button_to "Like", :action => :addToLiked, :controller => "songs", params: {id: song.id}, method: :post %>
+            </td>
+          <% else %>
+            <td>Dislike</td>
+          <% end %>
+
+          <td>
+            <%= audio_tag song.mp3_song, controls: true, controlsList: "nodownload" %>
+          </td>
+
+          <td>
+          <% if song.performer_id != nil %>
+            <% perf_id = song.performer_id %>
+            <%= Performer.find(perf_id).name %>
+          <% else %>
+            None
+          <% end %>
+          </td>
+
+          <td>
+          <% if song.album_id != nil %>
+            <% album_id = song.album_id %>
+            <%= Album.find(album_id).title %>
+          <% else %>
+            None
+          <% end %>
+          </td>
+
+          <td><%= link_to 'Show', song %></td>
+          <% if current_user.admin? %>
+            <td><%= link_to 'Edit', edit_song_path(song) %></td>
+            <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>

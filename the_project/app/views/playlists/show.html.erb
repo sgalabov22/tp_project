@@ -6,54 +6,68 @@
 
   </head>
   <body>
+    <div class="header_cont">
+      <h3>Playlist</h3>
+      <h1><%= @playlist.name %></h1>
 
-    Name: <%= @playlist.name %><br>
+      <%= button_tag "Play", class: "playBtn", class: "playAll", value: current_user.songs.first.mp3_song %>
 
-    <% if !@playlist_songs.empty? %>
-      <%= button_tag "Play the playlist", class: "playBtn", value: @playlist_songs.first.mp3_song %>
-    <% end %>
+    </div>
 
     <%= link_to "Delete playlist",playlist_path(@playlist), method: :delete %>
     <br>
-    <% if !@playlist_songs.empty? %>
-      <%= audio_tag @playlist_songs[0].mp3_song, controls: true, controlsList: "nodownload", id: "audio_tag_id" %>
-      <br><br>
-    <% end %>
 
-    <table>
+    <table class = "tables">
       <thead>
-
+        <tr>
+          <th>Player</th>
+          <th>Title</th>
+          <th>Performer</th>
+          <th>Album</th>
+          <th colspan="3">Options</th>
+        </tr>
       </thead>
+
       <tbody>
-          <% @playlist_songs.each do |song| %>
-            <tr>
-              <th>Song Title: </th>
-              <td><%= link_to song.title, song_path(song) %></td>
 
-              <td><%= button_tag "Play the song", class: "playBtn", value: song.mp3_song %></td>
+        <%= audio_tag @playlist.songs.first.mp3_song, controls: true, controlsList: "nodownload", id: "audio_tag_songs_id" %>
 
-              <td><%= link_to "Remove song", "subscriptions/delete?playlist_id=#{@playlist.id}&song_id=#{song.id}" %></td>
-            </tr>
-          <% end %>
+        <% @playlist.songs.each do |song| %>
+          <tr>
+            <td><%= button_tag class: "playBtn", value: song.mp3_song do %>
+                <i class="far fa-play-circle fa-2x"></i>
+              <% end %>
+            </td>
+
+            <td><%= song.title %></td>
+
+            <td>
+            <% if song.performer_id != nil %>
+              <% perf_id = song.performer_id %>
+              <%= Performer.find(perf_id).name %>
+            <% else %>
+              <p>None</p>
+            <% end %>
+            </td>
+
+            <td>
+            <% if song.album_id != nil %>
+              <% album_id = song.album_id %>
+              <%= Album.find(album_id).title %>
+            <% else %>
+              <p>None</p>
+            <% end %>
+            </td>
+
+            <td><%= link_to 'Show', song %></td>
+            <% if current_user.admin? %>
+              <td><%= link_to 'Edit', edit_song_path(song) %></td>
+              <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
+        <% end %>
       </tbody>
     </table>
-    <br>
-
-    <%= form_tag("subscriptions/add?playlist_id=#{@playlist.id}") do %>
-      <% playlist_songs = Array.new()
-      Song.all.each do |song|
-        if !song.playlists.ids.include? @playlist.id
-          playlist_songs.append(song)
-        end
-      end %>
-
-      <% if !playlist_songs.empty? %>
-        <%= select_tag "song_id", options_from_collection_for_select(playlist_songs, :id, :title) %>
-        <%= submit_tag "Add song to playlist" %>
-      <% end %>
-    <% end %>
-
-    <%= link_to "Back", playlists_path %>
 
     <script type="text/javascript">
       $(document).ready( function(){
@@ -87,7 +101,6 @@
         })
 
       });
-
     </script>
   </body>
 </html>

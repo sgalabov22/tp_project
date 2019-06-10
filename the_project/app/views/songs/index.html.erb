@@ -6,13 +6,21 @@
 
   </head>
   <body>
-    <h1>Songs</h1>
+    <div class="header_cont">
+      <h1>Songs</h1>
 
-    <table id = "songs_table">
+      <%= button_tag "Play", class: "playBtn", class: "playAll", value: current_user.songs.first.mp3_song %>
+
+      <% if current_user.songs.empty? %>
+        <h3 style="margin-top: 1em;">You haven't liked any songs</h3>
+      <% else %>
+    </div>
+
+    <table class = "tables">
       <thead>
         <tr>
-          <th>Title</th>
           <th>Player</th>
+          <th>Title</th>
           <th>Performer</th>
           <th>Album</th>
           <th colspan="3">Options</th>
@@ -25,7 +33,10 @@
 
         <% current_user.songs.each do |song| %>
           <tr>
-            <td><%= button_tag "Play the song", class: "playBtn", value: song.mp3_song %></td>
+            <td><%= button_tag class: "playBtn", value: song.mp3_song do %>
+                <i class="far fa-play-circle fa-2x"></i>
+              <% end %>
+            </td>
 
             <td><%= song.title %></td>
 
@@ -49,14 +60,24 @@
 
             <td><%= link_to 'Show', song %></td>
             <% if current_user.admin? %>
-              <td><%= link_to 'Edit', edit_song_path(song) %></td>
+              <td>
+                <div class="dropdown">
+                  <button class="dropbtn">Add to playlist</button>
+                  <div class="dropdown-content">
+                    <% Playlist.all.each do |playlist| %>
+                      <%= link_to playlist.name, "subscriptions/add?playlist_id=#{playlist.id}&song_id=#{song.id}" %>
+                    <% end %>
+
+                  </div>
+                </div>
+              </td>
               <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
           </tr>
         <% end %>
-
       </tbody>
     </table>
+    <% end %>
 
     <script type="text/javascript">
       $(document).ready( function(){

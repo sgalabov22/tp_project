@@ -13,13 +13,19 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %><br>
+    <%= form.text_field :title %>
+    <br><br>
 
+    <%= form.label :performer %>
     <%= select_tag "performer_id", options_from_collection_for_select(Performer.all, :id, :name) %>
+    <br><br>
 
-    <br>
+    <%= form.label :album %>
+    <%= select_tag "album_id", options_from_collection_for_select(Album.all, :id, :title) %>
+    <br><br>
+    <%= form.label :MP3 %>
     <%= form.file_field :mp3_song %>
-    <br><%= form.submit %>
+    <br><br><%= form.submit %>
   </div>
 
 <% end %>

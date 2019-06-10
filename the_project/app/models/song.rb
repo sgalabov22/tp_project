@@ -2,8 +2,8 @@ class Song < ApplicationRecord
   has_many :subscriptions
   has_many :playlists, through: :subscriptions
 
-  belongs_to :album, optional: true
-  belongs_to :performer, optional: true
+  belongs_to :album
+  belongs_to :performer
 
   has_and_belongs_to_many :users
 

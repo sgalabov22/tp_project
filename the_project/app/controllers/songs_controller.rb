@@ -43,6 +43,9 @@ class SongsController < ApplicationController
     performer = Performer.find(params[:performer_id])
     performer.songs.append(song)
 
+    album = Album.find(params[:album_id])
+    album.songs.append(song)
+
     if song.save
       redirect_to songs_path
     end
