@@ -64,6 +64,21 @@
     height: 500px;
   }
 
+  .search-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #196621;
+  }
+
+  .search-input {
+    width: 200px;
+    height: 30px;
+    border-radius: 25px;
+    border: 1px solid #196621;
+    text-indent: 10px;
+  }
+
   .btn {
     background: none;
     color: white;
