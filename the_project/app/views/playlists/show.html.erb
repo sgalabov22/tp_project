@@ -10,7 +10,7 @@
       <h3>Playlist</h3>
       <h1><%= @playlist.name %></h1>
 
-      <%= button_tag "Play", class: "playBtn", class: "playAll", value: current_user.songs.first.mp3_song %>
+      <%= button_tag "Play", class: "playBtn playAll", value: current_user.songs.first.mp3_song %>
 
     </div>
 
@@ -74,7 +74,7 @@
         var sources = <%= raw @songs_json %>;
         var lastSong = <%= @songsCount %>;
 
-        var myAudio = $('#audio_tag_id')[0];
+        var myAudio = $('#audio_tag_songs_id')[0];
         var count = 0;
 
         myAudio.onended = function(){
@@ -94,7 +94,7 @@
 
         $(".playBtn").click(function(e) {
           var songSource = $(e.currentTarget)[0].value;
-          var myAudio = $('#audio_tag_id')[0];
+          var myAudio = $('#audio_tag_songs_id')[0];
           myAudio.setAttribute('src', songSource);
           myAudio.load();
           myAudio.play();

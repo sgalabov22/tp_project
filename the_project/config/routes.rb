@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post "/albums/add_song", to: "albums#add_song"
   get "/albums/destroy_song", to: "albums#destroy_song"
 
+  get "/songs/subscriptions/add", to: "subscriptions#create"
   post "/songs/addToLiked", to: "songs#addToLiked"
   post "/songs/dislike", to: "songs#dislike"
   get "/search", to: "search#index"
