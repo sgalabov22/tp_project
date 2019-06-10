@@ -8,28 +8,36 @@
     <%= link_to "New playlist", new_playlist_path %>
 
     <br><br>
-    <table class = "tables">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th colspan="3">Options</th>
-        </tr>
-      </thead>
 
-      <tbody>
-
-        <% current_user.playlists.each do |playlist| %>
+    <div class="header_cont">
+    <% if current_user.playlists.empty? %>
+      <h2>You don't have any playlists</h2>
+    </div>
+    <% else %>
+      <h1>Playlists</h1>
+      </div>
+      <table class="tables">
+        <thead>
           <tr>
-
-            <td><%= playlist.name %></td>
-
-            <td><%= link_to 'Show', playlist %></td>
-            <% if current_user.admin? %>
-              <td><%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
+            <th>Name</th>
+            <th colspan="3">Options</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          <% current_user.playlists.each do |playlist| %>
+            <tr>
+              <td><%= playlist.name %></td>
+
+              <td><%= link_to 'Show', playlist %></td>
+              <% if current_user.admin? %>
+                <td><%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
   </body>
 </html>
