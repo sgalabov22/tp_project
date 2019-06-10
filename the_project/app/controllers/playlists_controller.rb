@@ -2,7 +2,6 @@ class PlaylistsController < ApplicationController
   def index
     @playlists = Playlist.all
     @songs = Song.all
-
   end
 
   def new

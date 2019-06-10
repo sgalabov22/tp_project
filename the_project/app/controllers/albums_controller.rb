@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  before_action :is_admin?, only: [:new, :destroy, :add_song, :destroy_song]
+  before_action :is_admin?, only: [:new, :create, :index, :destroy, :add_song, :destroy_song]
   skip_before_action :verify_authenticity_token
 
   def is_admin?

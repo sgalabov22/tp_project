@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 2019_05_13_203722) do
     t.string "mp3_song_content_type"
     t.integer "mp3_song_file_size"
     t.datetime "mp3_song_updated_at"
-    t.integer "user_id"
   end
 
   create_table "songs_users", id: false, force: :cascade do |t|
@@ -72,7 +71,6 @@ ActiveRecord::Schema.define(version: 2019_05_13_203722) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "song_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
