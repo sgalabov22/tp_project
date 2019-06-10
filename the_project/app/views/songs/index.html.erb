@@ -30,12 +30,6 @@
             <tr>
               <td><%= song.title %></td>
 
-              <% if !current_user.songs.include? song %>
-                <td>
-                <%= button_to "Like", :action => :addToLiked, params: {id: song.id}, method: :post %>
-                </td>
-              <% end %>
-
               <td>
                 <%= audio_tag song.mp3_song, controls: true, controlsList: "nodownload" %>
               </td>

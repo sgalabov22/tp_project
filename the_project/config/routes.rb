@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "/albums/destroy_song", to: "albums#destroy_song"
   
   post "/songs/addToLiked", to: "songs#addToLiked"
+  post "/songs/dislike", to: "songs#dislike"
   get "/search", to: "search#index"
 
   resources :subscriptions

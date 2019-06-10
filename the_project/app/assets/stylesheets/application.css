@@ -155,19 +155,19 @@
     z-index: -1111;
   }
 
-  @media screen and (min-width: 970px) {
+  @media screen and (min-width: 1265px) {
     .menu {
       margin-right: 10%;
     }
   }
 
-  @media screen and (min-width: 968px) and (max-width: 969px) {
+  @media screen and (min-width: 1263px) and (max-width: 1264px) {
     .menu {
       transition: 0s;
     }
   }
 
-  @media screen and (max-width:967px) {
+  @media screen and (max-width:1262px) {
     section {
       z-index: -1;
       height: 500px;

@@ -78,6 +78,14 @@ class SongsController < ApplicationController
     end
   end
 
+  def dislike
+    songToDislike = Song.find(params[:id])
+    if current_user.songs.include? songToDislike
+      current_user.songs.delete(songToDislike)
+    end
+    redirect_to songs_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_song
