@@ -29,9 +29,11 @@ class SongsController < ApplicationController
   # POST /songs
   # POST /songs.json
   def create
-    @song = Song.new(song_params)
+    song = Song.new(song_params)
+    performer = Performer.find(params[:performer_id])
+    performer.songs.append(song)
 
-    if @song.save
+    if song.save
       redirect_to songs_path
     end
   end
@@ -53,7 +55,6 @@ class SongsController < ApplicationController
   # DELETE /songs/1
   # DELETE /songs/1.json
   def destroy
-    is_admin?
     @song.destroy
     respond_to do |format|
       format.html { redirect_to songs_url, notice: 'Song was successfully destroyed.' }
@@ -64,7 +65,7 @@ class SongsController < ApplicationController
   def addToLiked
     songToAdd = Song.find(params[:id])
     if !current_user.songs.include? songToAdd
-      current_user.songs.push(songToAdd)
+      current_user.songs.append(songToAdd)
       redirect_to songs_path
     else
       redirect_to songs_path
@@ -79,6 +80,6 @@ class SongsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def song_params
-      params.require(:song).permit(:title, :mp3_song)
+      params.require(:song).permit(:title, :mp3_song, :performer_id)
     end
 end

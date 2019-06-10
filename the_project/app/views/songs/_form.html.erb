@@ -14,6 +14,10 @@
   <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %><br>
+
+    <%= select_tag "performer_id", options_from_collection_for_select(Performer.all, :id, :name) %>
+
+    <br>
     <%= form.file_field :mp3_song %>
     <br><%= form.submit %>
   </div>
