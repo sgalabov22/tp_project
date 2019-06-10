@@ -9,11 +9,11 @@
     <div class="header_cont">
       <h1>Songs</h1>
 
-      <%= button_tag "Play", class: "playBtn playAll", value: current_user.songs.first.mp3_song %>
-
       <% if current_user.songs.empty? %>
         <h3 style="margin-top: 1em;">You haven't liked any songs</h3>
       <% else %>
+
+      <%= button_tag "Play", class: "playBtn playAll", value: current_user.songs.first.mp3_song %>
     </div>
 
     <table class="tables">
@@ -64,9 +64,11 @@
                 <div class="dropdown">
                   <button class="dropbtn">Add to playlist</button>
                   <div class="dropdown-content">
-                    <% Playlist.all.each do |playlist| %>
+                    <% current_user.playlists.each do |playlist| %>
+                      <% if !playlist.songs.include? song %>
+                        <%= link_to playlist.name, {:controller => "subscriptions", :action => "create", :playlist_id => playlist.id, :song_id => song.id} %>
+                      <% end %>
                     <% end %>
-
                   </div>
                 </div>
               </td>

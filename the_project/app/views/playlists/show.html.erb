@@ -10,8 +10,11 @@
       <h3>Playlist</h3>
       <h1><%= @playlist.name %></h1>
 
-      <%= button_tag "Play", class: "playBtn playAll", value: current_user.songs.first.mp3_song %>
+      <% if @playlist.songs.empty? %>
+        <h3 style="margin-top: 1em;">You don't have any songs in this playlist.</h3>
+      <% else %>
 
+      <%= button_tag "Play", class: "playBtn playAll", value: current_user.songs.first.mp3_song %>
     </div>
 
     <%= link_to "Delete playlist",playlist_path(@playlist), method: :delete %>
@@ -29,7 +32,6 @@
       </thead>
 
       <tbody>
-
         <%= audio_tag @playlist.songs.first.mp3_song, controls: true, controlsList: "nodownload", id: "audio_tag_songs_id" %>
 
         <% @playlist.songs.each do |song| %>
@@ -62,12 +64,13 @@
             <td><%= link_to 'Show', song %></td>
             <% if current_user.admin? %>
               <td><%= link_to 'Edit', edit_song_path(song) %></td>
-              <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Destroy', {:controller => "subscriptions", :action => "destroy", :playlist_id => @playlist.id, :song_id => song.id}, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
           </tr>
         <% end %>
       </tbody>
     </table>
+    <% end %>
 
     <script type="text/javascript">
       $(document).ready( function(){

@@ -13,7 +13,7 @@ class SubscriptionsController < ApplicationController
     song = Song.find(params[:song_id])
     playlist = Playlist.find(params[:playlist_id])
 
-    playlist.songs.delete(song)
+    Subscription.where(song: song, playlist: playlist).destroy_all
     redirect_to playlist_path(playlist)
   end
 end

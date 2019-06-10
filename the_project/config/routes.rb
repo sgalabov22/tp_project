@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   post '/performers/records/add', to: "records#create"
   get '/performers/records/delete', to: "records#destroy"
+  get "/playlists/subscriptions/add", to: "subscriptions#create"
   post "/playlists/subscriptions/add", to: "subscriptions#create"
-  get "/playlists/subscriptions/delete", to: "subscriptions#destroy"
+  get "/playlists/subscriptions/destroy", to: "subscriptions#destroy"
   post "/performers/add_song", to: "performers#add_song"
   get "/performers/destroy_song", to: "performers#destroy_song"
   post "/performers/add_album", to: "performers#add_album"
