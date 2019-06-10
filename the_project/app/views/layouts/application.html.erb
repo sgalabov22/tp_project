@@ -14,7 +14,6 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     </head>
   <body>
-
     <header>
       <a href="/"><%= image_tag  "spotify.png", :class => "logo" %></a>
       <input type="checkbox" id="chk">
@@ -38,6 +37,11 @@
         </label>
       </ul>
     </header>
+
+    <%= form_tag(search_url, :method => :get) do %>
+      <%= text_field_tag :search, nil, placeholder: 'Search' %>
+      <%= submit_tag("Search") %>
+    <% end %>
 
     <%= yield %>
   </body>

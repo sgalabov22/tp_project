@@ -10,6 +10,13 @@ class SongsController < ApplicationController
 
   def index
     @songs = Song.all
+=begin
+    if params[:search]
+      @songs = Search.execute(params[:search]);
+    else
+      @songs = Song.all.order("created_at DESC");
+    end
+=end
   end
 
   # GET /songs/1
