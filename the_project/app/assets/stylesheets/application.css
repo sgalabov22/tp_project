@@ -213,7 +213,6 @@
     .logo {
       margin: 0;
     }
-<<<<<<< HEAD
   }
 
   .tables{
@@ -308,6 +307,4 @@
   .dropdown:hover .dropdown-content {display: block;}
 
   .dropdown:hover .dropbtn {background-color: rgb(48, 48, 48);}
-=======
-  }
->>>>>>> 4bf90d3b94bb823945ef25bc7d53ab7bb6008f55
+
