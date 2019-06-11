@@ -15,7 +15,7 @@
       <% else %>
 
       <%= button_tag "Play", class: "playBtn playAll", value: @playlist.songs.first.mp3_song, :style => "float: left;"%>
-      <%= button_to "Edit playlist", edit_playlist_path, :class => "button-new", :id => "button-edit", :style => "float: left;" %>
+      <%= button_to "Edit playlist", edit_playlist_path, method: :get, :class => "button-new", :id => "button-edit", :style => "float: left;" %>
       <%= button_to "Delete playlist", playlist_path(@playlist), method: :delete, :class => "button-new", :id => "button-delete" %>
     </div>
     <br>
