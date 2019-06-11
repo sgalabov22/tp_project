@@ -254,6 +254,7 @@
   }
 
   .playBtn{
+    color: white;
     background-color: inherit;
     cursor: pointer;
     border: None;
