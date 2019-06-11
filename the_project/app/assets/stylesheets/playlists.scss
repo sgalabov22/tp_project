@@ -22,3 +22,46 @@
     background-color: red;
     border: 2px solid red;
 }
+
+#button-edit {
+    margin-left: 20px;
+    background-color: blue;
+    border: 2px solid blue;
+}
+
+.centered {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+.form_element {
+    text-align: center;
+    padding: 10px;
+}
+
+.form_element input{
+    border: none;
+    outline: none;
+    background: none;
+    color: black;
+    font-size: 18px;
+    width: 80%;
+    float: left;
+    margin: 0 10px;
+}
+
+.form_element h1 {
+    float: left;
+    font-size: 40px;
+    border-bottom: 6px solid #107538;
+    margin-bottom: 50px;
+    margin-top: 0;
+}
+
+::placeholder {
+    color: white;
+}

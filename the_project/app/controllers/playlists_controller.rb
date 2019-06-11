@@ -35,6 +35,20 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def edit
+    @playlist = Playlist.find(params[:id])
+  end
+
+  def update
+    playlist = Playlist.find(params[:id])
+    
+    if playlist.update_attributes(playlist_params)
+      redirect_to playlist_path(playlist)
+    else 
+      redirect_to edit_playlist_path(playlist)
+    end
+  end 
+
   def destroy
     playlist = Playlist.find(params[:id])
     playlist.destroy
