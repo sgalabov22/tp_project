@@ -14,7 +14,7 @@
         <h3 style="margin-top: 1em;">You don't have any songs in this playlist.</h3>
       <% else %>
 
-      <%= button_tag "Play", class: "playBtn playAll", value: current_user.songs.first.mp3_song %>
+      <%= button_tag "Play", class: "playBtn playAll", value: @playlist.songs.first.mp3_song %>
     </div>
 
     <%= link_to "Delete playlist",playlist_path(@playlist), method: :delete %>
