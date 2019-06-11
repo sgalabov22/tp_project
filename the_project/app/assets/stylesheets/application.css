@@ -253,7 +253,8 @@
     margin-bottom: 1em;
   }
 
-  .playBtn{
+  .playBtn {
+    color: white;
     background-color: inherit;
     cursor: pointer;
     border: None;
