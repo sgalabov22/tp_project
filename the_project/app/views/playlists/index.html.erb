@@ -5,16 +5,17 @@
     <title></title>
   </head>
   <body>
-    <%= link_to "New playlist", new_playlist_path %>
-
     <br><br>
 
     <div class="header_cont">
-    <% if current_user.playlists.empty? %>
-      <h2>You don't have any playlists</h2>
-    </div>
-    <% else %>
       <h1>Playlists</h1>
+      <br>
+      <%= button_to "New playlist", new_playlist_path, :class => "button-new", method: :get %>
+      <br>
+      <% if current_user.playlists.empty? %>
+        <h2>You don't have any playlists</h2>
+    </div>
+      <% else %>
       </div>
       <table class="tables">
         <thead>

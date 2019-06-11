@@ -1,3 +1,24 @@
 // Place all the styles related to the Playlists controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.button-new {
+    width: 150px;
+    background: none;
+    color: white;
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 12px 0;
+    border-radius: 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    background-color: #107538;
+    border: 2px solid #107538;
+}
+
+#button-delete {
+    margin-left: 20px;
+    background-color: red;
+    border: 2px solid red;
+}

@@ -1,5 +1,4 @@
 class PlaylistsController < ApplicationController
-  protect_from_forgery prepend: true
 
   def index
     @playlists = Playlist.all
